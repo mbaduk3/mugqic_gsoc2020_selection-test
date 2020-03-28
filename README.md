@@ -1,7 +1,7 @@
 # mugqic_gsoc2020_selection-test
-Google Summer of Code 2020
-Organization: Canadian Centre for Computational Genomics
-Project: "Ingesting the Canadian Common CV" -- selection test
+Google Summer of Code 2020.\
+Organization: Canadian Centre for Computational Genomics.\
+Project: "Ingesting the Canadian Common CV" -- selection test.\
 
 This small webapp provides certain endpoints for the serving of bioinformatics.stackexchange.com post data, with a few filtering options.
 
