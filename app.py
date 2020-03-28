@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, redirect
 import sqlite3
+import re
 
 """
     This script launches the webapp which serves data from the 'posts.db' 
@@ -31,8 +32,12 @@ def get_posts():
 def search_posts():
     conn = sqlite3.connect('posts.db')
     cur = conn.cursor()
-    term = request.args.get('term')
-    query = f'SELECT * FROM posts WHERE title LIKE "%{term}%" OR body LIKE "%{term}%"'
+    term:str = request.args.get('term')
+    query = f"""
+        SELECT * FROM posts WHERE title LIKE \'%{term}%\' OR body LIKE \'%{term}%\'
+    """
+    if (re.search("-{2}|;", query)):
+        return "Invalid search string: " + term
     rows = []
     for row in cur.execute(query):
         rows.append(row)
