@@ -29,17 +29,20 @@ c.execute(create_table)
 tree = ET.parse('bioinformatics_posts_se.xml')
 root = tree.getroot()
 for child in root:
-    post = child.attrib
-    needed = ['Id', 'PostTypeId', 'ParentId', 'CreationDate', 'Score', 
-              'ViewCount', 'Body', 'OwnerUserId', 'LastActivityDate', 
-              'Title', 'CommentCount']
-    values = []
-    for elem in needed:
-        try:
-            values.append(post[elem])
-        except:
-            values.append(None)
-    c.execute('INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', values)
+    try:
+        post = child.attrib
+        needed = ['Id', 'PostTypeId', 'ParentId', 'CreationDate', 'Score', 
+                'ViewCount', 'Body', 'OwnerUserId', 'LastActivityDate', 
+                'Title', 'CommentCount']
+        values = []
+        for elem in needed:
+            try:
+                values.append(post[elem])
+            except:
+                values.append(None)
+        c.execute('INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', values)
+    except e:
+        app.logger.warn('Could not insert values into database:', e)
 
 conn.commit()
 conn.close()
